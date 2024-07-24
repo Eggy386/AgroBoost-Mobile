@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?CardBGColor"
+    tools:deviceIds="wear">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:text="Inicio"
+                android:textColor="?titleColor"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:ignore="SmallSp"
+                android:fontFamily="@font/hind_madurai"
+                android:paddingTop="16dp"/>
+
+            <LinearLayout
+                android:id="@+id/linearCultivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:background="@drawable/container"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Estado del cultivo"
+                    android:textColor="?TextInfoColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/hind_madurai"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Temp"
+                            android:textColor="?titleColor"
+                            android:textSize="12sp"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/hind_madurai"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Hume"
+                            android:textColor="?titleColor"
+                            android:textSize="12sp"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/hind_madurai"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="PH"
+                            android:textColor="?titleColor"
+                            android:textSize="12sp"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/hind_madurai"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textViewTemperatura"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="18°C"
+                            android:textSize="14sp"
+                            android:textColor="@color/temperatura"
+                            android:textAlignment="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/hind_madurai"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="|"
+                            android:textSize="14sp"
+                            android:textColor="?TextViewHeaderColor"
+                            android:textAlignment="center"
+                            android:layout_weight="1.4"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/textViewHumedad"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="31%"
+                            android:textSize="14sp"
+                            android:textColor="@color/humedad"
+                            android:textAlignment="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/hind_madurai"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="|"
+                            android:textSize="14sp"
+                            android:textColor="?TextViewHeaderColor"
+                            android:textAlignment="center"
+                            android:layout_weight="1.4"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="6.1"
+                            android:textSize="14sp"
+                            android:textColor="@color/ph"
+                            android:textAlignment="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/hind_madurai"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearRecordatorio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:background="@drawable/container"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Recordatorios"
+                    android:textColor="?TextInfoColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/hind_madurai"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewNextRecordatorio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Próximo recordatorio:"
+                        android:textColor="?titleColor"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/hind_madurai"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textViewNameRecordatorio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Regar cultivo"
+                            android:layout_weight="1"
+                            android:textColor="?TextViewHeaderColor"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/hind_madurai"/>
+
+                        <TextView
+                            android:id="@+id/textViewHoraRecordatorio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="08:30 a.m."
+                            android:layout_weight="1"
+                            android:textColor="?TextViewHeaderColor"
+                            android:textSize="14sp"
+                            android:textAlignment="textEnd"
+                            android:fontFamily="@font/hind_madurai"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearRiego"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:background="@drawable/container"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Riego"
+                    android:textColor="?TextInfoColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/hind_madurai"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewNextRiego"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Próximo riego:"
+                        android:textColor="?titleColor"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/hind_madurai"/>
+
+                    <TextView
+                        android:id="@+id/textViewHoraRiegoInicio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="05:30 p.m."
+                        android:layout_weight="1"
+                        android:textColor="?TextViewHeaderColor"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/hind_madurai"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp">
+                <Button
+                    android:id="@+id/viewPhoneInicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mostrar en el teléfono"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:textColor="?TextInfoColor"
+                    android:background="@drawable/bkg_button"
+                    android:fontFamily="@font/hind_madurai"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

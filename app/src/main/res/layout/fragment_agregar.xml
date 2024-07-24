@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AgregarFragment"
+    android:background="@color/background"
+    android:paddingHorizontal="16dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarThumbVertical="@null">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="22dp"
+                    android:paddingVertical="14dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:padding="12dp"
+                        android:background="@drawable/contenedor_light">
+
+                        <TextView
+                            android:id="@+id/textView32"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Frambuesa"
+                            android:textAlignment="center"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:layout_marginBottom="12dp"/>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/fresa"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:padding="12dp"
+                        android:background="@drawable/contenedor_light">
+
+                        <TextView
+                            android:id="@+id/textView33"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Maíz"
+                            android:textAlignment="center"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:layout_marginBottom="12dp"/>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/maiz"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha de siembra"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <EditText
+                        android:id="@+id/editTextDateAgregar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="date"
+                        android:background="@drawable/contenedor"
+                        android:padding="12dp"
+                        android:hint="Ingrese la fecha de siembra"
+                        android:focusable="false"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tipo de riego"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerTipoRiego"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/contenedor"
+                        android:padding="12dp"
+                        android:popupBackground="@drawable/contenedor"
+                        android:spinnerMode="dropdown"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Programa de riego"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <EditText
+                        android:id="@+id/editTextProgramaRiego"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:background="@drawable/contenedor"
+                        android:padding="12dp"
+                        android:hint="Ingrese el programa de riego"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Método de fertilización"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerMetodoFert"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/contenedor"
+                        android:padding="12dp"
+                        android:popupBackground="@drawable/contenedor"
+                        android:spinnerMode="dropdown"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="¿Cada cuánto fertiliza su cultivo?"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerTiempoFert"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/contenedor"
+                        android:padding="12dp"
+                        android:popupBackground="@drawable/contenedor"
+                        android:spinnerMode="dropdown"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="¿Qué cantidad de fertilizante utiliza?"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <EditText
+                        android:id="@+id/editTextCantidadFert"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:background="@drawable/contenedor"
+                        android:padding="12dp"
+                        android:hint="Ingrese la cantidad de fertilizante"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="¿Qué métodos de control de plagas utiliza?"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerControlPlaga"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/contenedor"
+                        android:padding="12dp"
+                        android:popupBackground="@drawable/contenedor"
+                        android:spinnerMode="dropdown"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="¿Qué técnicas de polinización utiliza?"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerTecnicaPol"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/contenedor"
+                        android:padding="12dp"
+                        android:popupBackground="@drawable/contenedor"
+                        android:spinnerMode="dropdown"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="¿Cuales son las medidas de la siembra?"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <EditText
+                        android:id="@+id/editTextMedidas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:background="@drawable/contenedor"
+                        android:padding="12dp"
+                        android:hint="Ingrese los metros cuadrados de la siembra"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="32dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha prevista para la cosecha"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <EditText
+                        android:id="@+id/editTextDateCosecha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="date"
+                        android:background="@drawable/contenedor"
+                        android:padding="12dp"
+                        android:hint="Ingrese la fecha para la cosecha"
+                        android:focusable="false"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="12dp">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Registrar cultivo"
+                    android:background="@drawable/button_filled"
+                    android:textColor="@color/background"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/hind_madurai"
+                    android:padding="16dp"
+                    android:textAllCaps="false"
+                    android:textFontWeight="600"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

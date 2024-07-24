@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_inicio"
+                android:icon="@drawable/home"
+                android:title="Inicio" />
+        </menu>
+    </item>
+    <item android:title="Operaciones agrícolas">
+        <menu>
+            <item
+                android:id="@+id/nav_cultivos"
+                android:icon="@drawable/cultivo"
+                android:title="Mis cultivos" />
+            <item
+                android:id="@+id/nav_riego"
+                android:icon="@drawable/riego"
+                android:title="Riego" />
+            <item
+                android:id="@+id/nav_fertilizacion"
+                android:icon="@drawable/fertilizante"
+                android:title="Fertilización" />
+        </menu>
+    </item>
+
+    <item android:title="Gestión de cultivos">
+        <menu>
+            <item
+                android:id="@+id/nav_recordatorios"
+                android:icon="@drawable/clock"
+                android:title="Recordatorios" />
+            <item
+                android:id="@+id/nav_agregar"
+                android:icon="@drawable/add"
+                android:title="Agregar cultivo" />
+        </menu>
+    </item>
+
+    <item android:title="Otros">
+        <menu>
+            <item
+                android:id="@+id/nav_ajustes"
+                android:icon="@drawable/setting"
+                android:title="Ajustes" />
+        </menu>
+    </item>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/logout"
+                android:title="Cerrar sesión" />
+        </menu>
+    </item>
+</menu>

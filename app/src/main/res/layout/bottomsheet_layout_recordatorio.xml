@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_bkg">
+
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/minus"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center|top"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewNewRecordatorio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nuevo recordatorio"
+                android:textAlignment="center"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:fontFamily="@font/hind_madurai"
+                android:textSize="26sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <NumberPicker
+                android:id="@+id/numPickerMinRec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="14dp"/>
+
+            <TextView
+                android:id="@+id/textView38"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textSize="32sp"
+                android:fontFamily="@font/hind_madurai"
+                android:textStyle="bold"/>
+
+            <NumberPicker
+                android:id="@+id/numPickerSegRec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="14dp"/>
+
+            <NumberPicker
+                android:id="@+id/numPickerAmRec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre"
+                android:textColor="@color/primary"
+                android:fontFamily="@font/hind_madurai"
+                android:textStyle="bold"
+                android:textSize="26sp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/editTextText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="Ingrese el nombre del recordatorio"
+                android:padding="12dp"
+                android:background="@drawable/contenedor"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Repetir"
+                android:textColor="@color/primary"
+                android:fontFamily="@font/hind_madurai"
+                android:textStyle="bold"
+                android:textSize="26sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="RadioButton" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+
+            <Button
+                android:id="@+id/buttonCancelRecordatorio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cancelar"
+                android:layout_weight="1"
+                android:background="@drawable/button_outlined"
+                android:textSize="16sp"
+                android:fontFamily="@font/hind_madurai"
+                android:textColor="@color/primary"
+                android:textFontWeight="600"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.8"/>
+
+            <Button
+                android:id="@+id/buttonSaveRecordatorio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Guardar"
+                android:layout_weight="1"
+                android:background="@drawable/button_filled"
+                android:fontFamily="@font/hind_madurai"
+                android:textSize="16sp"
+                android:textColor="@color/background"
+                android:textFontWeight="600"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="16dp"
+        android:scrollbarThumbVertical="@null">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <!-- Icono de usuario -->
+                <ImageView
+                    android:id="@+id/user_icon"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:src="@drawable/baseline_account_circle_24" />
+
+                <!-- Icono de editar sobrepuesto -->
+                <ImageView
+                    android:id="@+id/edit_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignBottom="@id/user_icon"
+                    android:layout_alignEnd="@id/user_icon"
+                    android:src="@drawable/pencil"
+                    android:background="@drawable/button_filled_second"
+                    android:padding="2dp"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:layout_marginBottom="6dp"/>
+
+                    <EditText
+                        android:id="@+id/editTextTextNameEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="Francisco"
+                        android:background="@drawable/text_input"
+                        android:padding="12dp"
+                        android:fontFamily="@font/hind_madurai"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Apellido Paterno"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:layout_marginBottom="6dp"/>
+
+                    <EditText
+                        android:id="@+id/editTextTextApePaterEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="Hernández"
+                        android:background="@drawable/text_input"
+                        android:padding="12dp"
+                        android:fontFamily="@font/hind_madurai"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Apellido Materno"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:layout_marginBottom="6dp"/>
+
+                    <EditText
+                        android:id="@+id/editTextTextApeMaterEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="González"
+                        android:background="@drawable/text_input"
+                        android:padding="12dp"
+                        android:fontFamily="@font/hind_madurai"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Correo electrónico"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/hind_madurai"
+                        android:layout_marginBottom="6dp"/>
+
+                    <EditText
+                        android:id="@+id/editTextTextCorreoEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textEmailAddress"
+                        android:text="frank@gmail.com"
+                        android:background="@drawable/text_input"
+                        android:padding="12dp"
+                        android:fontFamily="@font/hind_madurai"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="32dp">
+
+                <Button
+                    android:id="@+id/buttonCancelEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_outlined"
+                    android:fontFamily="@font/hind_madurai"
+                    android:padding="16dp"
+                    android:text="Cancelar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/primary"
+                    android:textFontWeight="600"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.8" />
+
+                <Button
+                    android:id="@+id/buttonUpdateEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_filled"
+                    android:fontFamily="@font/hind_madurai"
+                    android:padding="16dp"
+                    android:text="Actualizar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/background"
+                    android:textFontWeight="600"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

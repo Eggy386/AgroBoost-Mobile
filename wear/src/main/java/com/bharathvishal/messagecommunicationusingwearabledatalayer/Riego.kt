@@ -1,0 +1,11 @@
+package com.bharathvishal.messagecommunicationusingwearabledatalayer
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+
+class Riego: ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.riego)
+    }
+}

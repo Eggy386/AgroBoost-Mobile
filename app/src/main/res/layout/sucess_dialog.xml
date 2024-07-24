@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/success_dialog"
+    android:orientation="vertical"
+    android:background="@drawable/alerts_bkg"
+    android:layout_marginHorizontal="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="22dp">
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/circle_check_success" />
+        <TextView
+            android:id="@+id/textViewTitleSucess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Success"
+            android:layout_marginLeft="10dp"
+            android:gravity="center|left"
+            android:textSize="26sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/hind_madurai"
+            android:textFontWeight="600"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewInfoSuccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Success"
+        android:fontFamily="@font/hind_madurai"
+        android:textSize="20sp"
+        android:textColor="@color/very_dark_gray"
+        android:layout_marginBottom="38dp"/>
+
+    <Button
+        android:id="@+id/buttonCloseSuccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aceptar"
+        android:background="@drawable/button_filled"
+        android:textColor="@color/background"
+        android:fontFamily="@font/hind_madurai"
+        android:textSize="16sp"
+        android:textFontWeight="600"
+        android:textAllCaps="false"/>
+
+</LinearLayout>

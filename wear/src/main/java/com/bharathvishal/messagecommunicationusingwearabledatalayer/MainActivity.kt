@@ -20,10 +20,12 @@ package com.bharathvishal.messagecommunicationusingwearabledatalayer
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -70,8 +72,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         // Enables Always-on
         ambientController = AmbientModeSupport.attach(this)
 
-
-        //On click listener for sendmessage button
+        /*On click listener for sendmessage button
         binding.sendmessageButton.setOnClickListener {
             if (mobileDeviceConnected) {
                 if (binding.messagecontentEditText.text!!.isNotEmpty()) {
@@ -116,7 +117,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     ).show()
                 }
             }
-        }
+        }*/
     }
 
     override fun onDataChanged(p0: DataEventBuffer) {
@@ -172,19 +173,16 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     sendMessageTask.addOnCompleteListener {
                         if (it.isSuccessful) {
                             Log.d(TAG_MESSAGE_RECEIVED, "Message sent successfully")
-                            binding.messagelogTextView.visibility = View.VISIBLE
 
                             val sbTemp = StringBuilder()
                             sbTemp.append("\nMobile device connected.")
                             Log.d("receive1", " $sbTemp")
-                            binding.messagelogTextView.append(sbTemp)
 
                             mobileDeviceConnected = true
 
-                            binding.textInputLayout.visibility = View.VISIBLE
-                            binding.sendmessageButton.visibility = View.VISIBLE
-                            binding.deviceconnectionStatusTv.visibility = View.VISIBLE
-                            binding.deviceconnectionStatusTv.text = "Mobile device is connected"
+                            val intent = Intent(this, Inicio::class.java)
+                            startActivity(intent)
+                            finish()
                         } else {
                             Log.d(TAG_MESSAGE_RECEIVED, "Message failed.")
                         }
@@ -195,23 +193,12 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
             }//emd of if
             else if (messageEventPath.isNotEmpty() && messageEventPath == MESSAGE_ITEM_RECEIVED_PATH) {
                 try {
-                    binding.messagelogTextView.visibility = View.VISIBLE
-                    binding.textInputLayout.visibility = View.VISIBLE
-                    binding.sendmessageButton.visibility = View.VISIBLE
-                    binding.deviceconnectionStatusTv.visibility = View.GONE
 
                     val sbTemp = StringBuilder()
                     sbTemp.append("\n")
                     sbTemp.append(s1)
                     sbTemp.append(" - (Received from mobile)")
                     Log.d("receive1", " $sbTemp")
-                    binding.messagelogTextView.append(sbTemp)
-
-
-                    binding.scrollviewTextMessageLog.requestFocus()
-                    binding.scrollviewTextMessageLog.post {
-                        binding.scrollviewTextMessageLog.fullScroll(ScrollView.FOCUS_DOWN)
-                    }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

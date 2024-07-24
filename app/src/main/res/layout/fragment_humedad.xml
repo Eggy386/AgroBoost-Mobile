@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HumedadFragment"
+    android:paddingHorizontal="16dp"
+    android:background="@color/background">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarThumbVertical="@null">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="12dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Humedad del suelo"
+                        android:textColor="@color/primary"
+                        android:fontFamily="@font/hind_madurai"
+                        android:textStyle="bold"
+                        android:textSize="26sp"/>
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Excelente"
+                        android:textSize="20sp"
+                        android:textColor="@color/green"
+                        android:textFontWeight="600"
+                        android:fontFamily="@font/hind_madurai"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="end">
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:src="@drawable/circle_check" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="12dp">
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineCharHumedad"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:fontFamily="@font/hind_madurai"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginVertical="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Recomendación"
+                    android:textColor="@color/primary"
+                    android:textSize="26dp"
+                    android:fontFamily="@font/hind_madurai"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView36"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hacer zanjas de filtración permitirá almacenar agua en la tierra y sobrevivir a sequías. Las zanjas son muy funcionales para las pendientes porque reducen la pérdida de agua en un 85%. También demoran el agua en su caída, dándole tiempo para ser absorbida por el suelo."
+                    android:textSize="20sp"
+                    android:textColor="@color/very_dark_gray"
+                    android:justificationMode="inter_word"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

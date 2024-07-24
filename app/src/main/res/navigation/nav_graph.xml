@@ -1,0 +1,104 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_humedadFragment"
+            app:destination="@id/humedadFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_temperaturaFragment"
+            app:destination="@id/temperaturaFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_nutrientesFragment"
+            app:destination="@id/nutrientesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/humedadFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.HumedadFragment"
+        android:label="Humedad"
+        tools:layout="@layout/fragment_humedad" />
+
+    <fragment
+        android:id="@+id/temperaturaFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.TemperaturaFragment"
+        android:label="Temperatura"
+        tools:layout="@layout/fragment_temperatura" />
+
+    <fragment
+        android:id="@+id/nutrientesFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.NutrientesFragment"
+        android:label="Nutrientes"
+        tools:layout="@layout/fragment_nutrientes" />
+
+    <fragment
+        android:id="@+id/cultivoFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.CultivoFragment"
+        android:label="Cultivo"
+        tools:layout="@layout/fragment_cultivo"/>
+
+    <fragment
+        android:id="@+id/agregarFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.AgregarFragment"
+        android:label="Agregar Cultivo"
+        tools:layout="@layout/fragment_agregar"/>
+
+    <fragment
+        android:id="@+id/ajustesFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.AjustesFragment"
+        android:label="Ajustes"
+        tools:layout="@layout/fragment_ajustes">
+        <action
+            android:id="@+id/action_ajustesFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment"/>
+        <action
+            android:id="@+id/action_ajustesFragment_to_smartwatchFragment"
+            app:destination="@id/smartwatchFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fertilizacionFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.FertilizacionFragment"
+        android:label="Fertilizacion"
+        tools:layout="@layout/fragment_fertilizacion"/>
+
+    <fragment
+        android:id="@+id/recordatorioFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.RecordatorioFragment"
+        android:label="Recordatorios"
+        tools:layout="@layout/fragment_recordatorio"/>
+
+    <fragment
+        android:id="@+id/riegoFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.RiegoFragment"
+        android:label="Riego"
+        tools:layout="@layout/fragment_riego"/>
+
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.PerfilFragment"
+        android:label="Perfil de usuario"
+        tools:layout="@layout/fragment_perfil">
+        <action
+            android:id="@+id/action_perfilFragment_to_editFragment"
+            app:destination="@id/editFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.EditFragment"
+        android:label="Información personal"
+        tools:layout="@layout/fragment_edit"/>
+
+    <fragment
+        android:id="@+id/smartwatchFragment"
+        android:name="com.bharathvishal.messagecommunicationusingwearabledatalayer.SmartwatchFragment"
+        android:label="Smartwatch"
+        tools:layout="@layout/fragment_smartwatch"/>
+</navigation>

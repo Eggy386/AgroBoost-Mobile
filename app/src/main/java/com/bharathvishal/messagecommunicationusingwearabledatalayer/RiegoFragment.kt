@@ -1,0 +1,111 @@
+package com.bharathvishal.messagecommunicationusingwearabledatalayer
+
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.view.Gravity
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.NumberPicker
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [Fragment] subclass.
+ * Use the [RiegoFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class RiegoFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+    private lateinit var numPickerMin: NumberPicker
+    private lateinit var numPickerSeg: NumberPicker
+    private lateinit var numPickerAm: NumberPicker
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    private fun showBottomDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.bottomsheet_layout)
+
+        val cancelButton = dialog.findViewById<Button>(R.id.buttonCancelRiego)
+
+        cancelButton.setOnClickListener { dialog.dismiss() }
+
+        numPickerMin = dialog.findViewById(R.id.numPickerMin)
+        numPickerSeg = dialog.findViewById(R.id.numPickerSeg)
+        numPickerAm = dialog.findViewById(R.id.numPickerAm)
+
+        numPickerMin.minValue = 0
+        numPickerMin.maxValue = 12
+
+        numPickerSeg.minValue = 0
+        numPickerSeg.maxValue = 59
+
+        val str = arrayOf<String>("AM", "PM")
+        numPickerAm.minValue = 0
+        numPickerAm.maxValue = (str.size - 1)
+        numPickerAm.displayedValues = str
+
+        dialog.show()
+
+        dialog.window!!.apply {
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            attributes.windowAnimations = R.style.DialogAnimation
+            setGravity(Gravity.BOTTOM)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_riego, container, false)
+
+        val fab = view.findViewById<FloatingActionButton>(R.id.addRiego)
+        fab.setOnClickListener {
+            showBottomDialog()
+        }
+
+        return view
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment RiegoFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            RiegoFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}

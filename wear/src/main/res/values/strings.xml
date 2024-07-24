@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Message communication using Wearable Data Layer</string>
+    <string name="app_name">AgroBoost</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
@@ -9,7 +9,7 @@
     <string name="mobile_message">Mobile message</string>
     <string name="phone_message">Phone Message</string>
     <string name="message">Message Content</string>
-    <string name="message_log">Message log</string>
+    <string name="message_log">Bienvenido</string>
     <string name="init">...</string>
     <string name="send_message_to_phone">Send Message to Phone</string>
 </resources>
