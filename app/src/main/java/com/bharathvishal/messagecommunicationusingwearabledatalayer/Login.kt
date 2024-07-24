@@ -14,8 +14,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import android.graphics.Color
+import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
+import android.widget.EditText
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 
 class Login: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,10 +44,14 @@ class Login: ComponentActivity() {
 
         val viewAgroboost: Button = findViewById(R.id.buttonLogin)
         viewAgroboost.setOnClickListener {
-            showDialogSuccess()
-            //showDialogError()
-            //showDialogWarning()
-            //showDialogDelete()
+            val correo = findViewById<EditText>(R.id.editTextCorreo).text.toString()
+            val contrasena = findViewById<EditText>(R.id.editTextPassword).text.toString()
+
+            if (correo.isEmpty() || contrasena.isEmpty()) {
+                showDialogWarning()
+            } else {
+                login(correo, contrasena)
+            }
         }
     }
 
@@ -71,16 +83,16 @@ class Login: ComponentActivity() {
         }
     }
 
-    private fun showDialogError() {
+    private fun showDialogError(title: String, message: String) {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.error_dialog)
 
         val textTitle: TextView = dialog.findViewById(R.id.textViewTitleError)
-        textTitle.text = ("Credenciales incorrectas")
+        textTitle.text = title
 
         val textInfo: TextView = dialog.findViewById(R.id.textViewInfoError)
-        textInfo.text = ("No fue posible iniciar sesión")
+        textInfo.text = message
 
         val buttonError: Button = dialog.findViewById(R.id.buttonCloseError)
         buttonError.setOnClickListener {
@@ -95,6 +107,7 @@ class Login: ComponentActivity() {
             setGravity(Gravity.CENTER)
         }
     }
+
 
     private fun showDialogWarning() {
         val dialog = Dialog(this)
@@ -145,4 +158,71 @@ class Login: ComponentActivity() {
             setGravity(Gravity.CENTER)
         }
     }
+
+    private fun login(correo: String, contrasena: String) {
+        val url = "http://192.168.1.11:4000/login" // Reemplaza con la IP de tu servidor
+
+        // Crea el objeto JSON para enviar
+        val jsonParams = JSONObject().apply {
+            put("correo_electronico", correo)
+            put("contrasena", contrasena)
+        }
+
+        val request = object : JsonObjectRequest(
+            Method.POST, // Método HTTP
+            url, // URL del servidor
+            jsonParams, // Parámetros JSON
+            Response.Listener { response ->
+                Log.d("LoginResponse", response.toString())
+                if (response.getBoolean("success")) {
+                    showDialogSuccess()
+                } else {
+                    Log.d("LoginActivity", "Credenciales incorrectas")
+                    showDialogError(
+                        "Credenciales incorrectas",
+                        "No fue posible iniciar sesión"
+                    )
+                }
+            },
+            Response.ErrorListener { error ->
+                error.printStackTrace()
+                val statusCode = error.networkResponse?.statusCode
+                when (statusCode) {
+                    401 -> {
+                        Log.d("LoginActivity", "Credenciales incorrectas")
+                        showDialogError(
+                            "Credenciales incorrectas",
+                            "No fue posible iniciar sesión"
+                        )
+                    }
+                    500 -> {
+                        Log.e("LoginError", "Error del servidor")
+                        showDialogError(
+                            "Error del sistema",
+                            "Ocurrió un error al intentar conectar con el servidor. Por favor, inténtalo más tarde."
+                        )
+                    }
+                    else -> {
+                        Log.e("LoginError", "Error desconocido: ${error.message}")
+                        showDialogError(
+                            "Error desconocido",
+                            "Ocurrió un error inesperado. Por favor, inténtalo más tarde."
+                        )
+                    }
+                }
+            }
+        ) {
+            // Redefine el método para obtener cabeceras
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Content-Type"] = "application/json"
+                return headers
+            }
+        }
+
+        val requestQueue = Volley.newRequestQueue(this)
+        requestQueue.add(request)
+    }
+
+
 }

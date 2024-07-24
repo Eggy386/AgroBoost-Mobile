@@ -95,6 +95,7 @@ dependencies {
     implementation(libs.playservices.wearable)
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.core.ktx)
+    implementation("com.android.volley:volley:1.2.1")
 }
 
 
