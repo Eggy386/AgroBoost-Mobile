@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Warning"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:textColor="@color/black"
         android:fontFamily="@font/hind_madurai"
         android:textFontWeight="600"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Warning"
         android:fontFamily="@font/hind_madurai"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/very_dark_gray"
         android:layout_marginBottom="38dp"/>
 
@@ -47,19 +47,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/buttonCancelWarning"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cancelar"
-            android:background="@drawable/button_outlined_yellow"
-            android:textColor="@color/orange"
-            android:fontFamily="@font/hind_madurai"
-            android:textSize="16sp"
-            android:textFontWeight="600"
-            android:textAllCaps="false"
-            android:layout_weight="1"
-            android:layout_marginRight="4dp"/>
 
         <Button
             android:id="@+id/buttonConfirmWarning"
@@ -72,8 +59,7 @@
             android:textSize="16sp"
             android:textFontWeight="600"
             android:textAllCaps="false"
-            android:layout_weight="1"
-            android:layout_marginLeft="4dp"/>
+            android:layout_weight="1"/>
     </LinearLayout>
 
 </LinearLayout>

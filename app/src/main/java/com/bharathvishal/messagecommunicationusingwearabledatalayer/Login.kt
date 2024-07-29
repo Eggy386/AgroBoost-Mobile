@@ -120,7 +120,7 @@ class Login: ComponentActivity() {
         val textInfo: TextView = dialog.findViewById(R.id.textViewInfoWarning)
         textInfo.text = ("Completa la información requerida")
 
-        val buttonWarning: Button = dialog.findViewById(R.id.buttonCancelWarning)
+        val buttonWarning: Button = dialog.findViewById(R.id.buttonConfirmWarning)
         buttonWarning.setOnClickListener {
             dialog.dismiss()
         }
@@ -160,7 +160,7 @@ class Login: ComponentActivity() {
     }
 
     private fun login(correo: String, contrasena: String) {
-        val url = "http://192.168.1.11:4000/login" // Reemplaza con la IP de tu servidor
+        val url = "http://192.168.50.23:4000/login" // Reemplaza con la IP de tu servidor
 
         // Crea el objeto JSON para enviar
         val jsonParams = JSONObject().apply {
@@ -174,7 +174,7 @@ class Login: ComponentActivity() {
             jsonParams, // Parámetros JSON
             Response.Listener { response ->
                 Log.d("LoginResponse", response.toString())
-                if (response.getBoolean("success")) {
+                if (response.getBoolean("success") && response.getBoolean("success")) {
                     showDialogSuccess()
                 } else {
                     Log.d("LoginActivity", "Credenciales incorrectas")

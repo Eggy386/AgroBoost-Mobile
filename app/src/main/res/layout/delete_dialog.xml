@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Delete"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:textColor="@color/black"
         android:fontFamily="@font/hind_madurai"
         android:textFontWeight="600"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Delete"
         android:fontFamily="@font/hind_madurai"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/very_dark_gray"
         android:layout_marginBottom="38dp"
         android:textAlignment="center"/>

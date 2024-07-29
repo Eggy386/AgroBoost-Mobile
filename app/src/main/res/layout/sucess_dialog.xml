@@ -26,7 +26,7 @@
             android:text="Success"
             android:layout_marginLeft="10dp"
             android:gravity="center|left"
-            android:textSize="26sp"
+            android:textSize="24sp"
             android:textColor="@color/black"
             android:fontFamily="@font/hind_madurai"
             android:textFontWeight="600"/>
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:text="Success"
         android:fontFamily="@font/hind_madurai"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/very_dark_gray"
         android:layout_marginBottom="38dp"/>
 

@@ -1,23 +1,35 @@
 package com.bharathvishal.messagecommunicationusingwearabledatalayer
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Gravity
+import android.view.ViewGroup
+import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.ComponentActivity
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 
+class Verificacion : ComponentActivity() {
 
-class Verificacion: ComponentActivity() {
+    private var correo: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.verificacion)
 
-        Log.d("Verificacion", "Actividad Verificacion cargada")
-
+        correo = intent.getStringExtra("correo_electronico")
 
         // Get references to your EditText views
         val editTextCodigo1 = findViewById<EditText>(R.id.editTextCodigo1)
@@ -54,7 +66,6 @@ class Verificacion: ComponentActivity() {
         val listener23: EditTextListener = EditTextListener(editTextCodigo2, editTextCodigo3)
         val listener34: EditTextListener = EditTextListener(editTextCodigo3, editTextCodigo4)
 
-
         // Set the TextWatcher on each EditText
         editTextCodigo1.addTextChangedListener(listener12)
         editTextCodigo2.addTextChangedListener(listener23)
@@ -68,8 +79,107 @@ class Verificacion: ComponentActivity() {
 
         val viewNewPass: Button = findViewById(R.id.buttonVerificacion)
         viewNewPass.setOnClickListener {
+            // Obtener el código de los EditText
+            val codigo = "${editTextCodigo1.text}${editTextCodigo2.text}${editTextCodigo3.text}${editTextCodigo4.text}"
+
+            // Llamar a la función para verificar el código
+            if(correo != null) {
+                verifyCode(correo!!, codigo)
+            }
+        }
+    }
+
+    private fun verifyCode(correo: String, codigo: String) {
+        val url = "http://192.168.50.23:4000/verifyCode"
+
+        val jsonParams = JSONObject().apply {
+            put("correo_electronico", correo)
+            put("code", codigo)
+        }
+
+        val request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonParams,
+            Response.Listener { response ->
+                try {
+                    val mensaje = response.getString("mensaje")
+                    if (mensaje == "Código de verificación válido") {
+                        showDialogSuccess()
+                    } else {
+                        showDialogError("Error", "Código de verificación inválido.")
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    showDialogError("Error", "Ocurrió un error al procesar la respuesta.")
+                }
+            },
+            Response.ErrorListener { error ->
+                error.printStackTrace()
+                showDialogError("Error", "Ocurrió un error en el servidor. Por favor, inténtalo más tarde.")
+            }
+        ) {
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Content-Type"] = "application/json"
+                return headers
+            }
+        }
+
+        val requestQueue = Volley.newRequestQueue(this)
+        requestQueue.add(request)
+    }
+
+    private fun showDialogError(title: String, message: String) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.error_dialog)
+
+        val textTitle: TextView = dialog.findViewById(R.id.textViewTitleError)
+        textTitle.text = title
+
+        val textInfo: TextView = dialog.findViewById(R.id.textViewInfoError)
+        textInfo.text = message
+
+        val buttonError: Button = dialog.findViewById(R.id.buttonCloseError)
+        buttonError.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
+        dialog.window!!.apply {
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setGravity(Gravity.CENTER)
+        }
+    }
+
+    private fun showDialogSuccess() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.sucess_dialog)
+
+        val textTitle: TextView = dialog.findViewById(R.id.textViewTitleSucess)
+        textTitle.text = "Verificación Exitosa"
+
+        val textInfo: TextView = dialog.findViewById(R.id.textViewInfoSuccess)
+        textInfo.text = "Código de verificación correcto."
+
+        val buttonSuccess: Button = dialog.findViewById(R.id.buttonCloseSuccess)
+        buttonSuccess.setOnClickListener {
+            dialog.dismiss()
             val intent = Intent(this@Verificacion, NewPassword::class.java)
+            intent.putExtra("correo_electronico", correo)
             startActivity(intent)
+        }
+
+        dialog.show()
+
+        dialog.window!!.apply {
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setGravity(Gravity.CENTER)
         }
     }
 }

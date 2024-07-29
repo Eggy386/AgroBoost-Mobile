@@ -23,12 +23,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Error"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="14dp"
             android:gravity="center|left"
-            android:textSize="26sp"
+            android:textSize="24sp"
             android:textColor="@color/black"
             android:fontFamily="@font/hind_madurai"
-            android:textFontWeight="600"/>
+            android:textFontWeight="600"
+            android:justificationMode="inter_word"/>
     </LinearLayout>
 
     <TextView
@@ -37,9 +38,10 @@
         android:layout_height="wrap_content"
         android:text="Error"
         android:fontFamily="@font/hind_madurai"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/very_dark_gray"
-        android:layout_marginBottom="38dp"/>
+        android:layout_marginBottom="38dp"
+        android:justificationMode="inter_word"/>
 
     <Button
         android:id="@+id/buttonCloseError"
