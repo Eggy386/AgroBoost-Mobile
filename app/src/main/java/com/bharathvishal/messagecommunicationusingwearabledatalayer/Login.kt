@@ -1,27 +1,22 @@
 package com.bharathvishal.messagecommunicationusingwearabledatalayer
 
-import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.view.Window
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import android.graphics.Color
 import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.EditText
-import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
@@ -160,7 +155,7 @@ class Login: ComponentActivity() {
     }
 
     private fun login(correo: String, contrasena: String) {
-        val url = "http://192.168.50.23:4000/login" // Reemplaza con la IP de tu servidor
+        val url = "http://192.168.1.23:4000/login" // Reemplaza con la IP de tu servidor
 
         // Crea el objeto JSON para enviar
         val jsonParams = JSONObject().apply {
@@ -175,6 +170,8 @@ class Login: ComponentActivity() {
             Response.Listener { response ->
                 Log.d("LoginResponse", response.toString())
                 if (response.getBoolean("success") && response.getBoolean("success")) {
+                    val userId = response.getJSONObject("usuario").getString("_id")
+                    saveLoginData(correo, userId)
                     showDialogSuccess()
                 } else {
                     Log.d("LoginActivity", "Credenciales incorrectas")
@@ -224,5 +221,14 @@ class Login: ComponentActivity() {
         requestQueue.add(request)
     }
 
-
+    private fun saveLoginData(correo: String, userId: String) {
+        val sharedPref = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            Log.v("SharedPreferences","Inicio de sesión guardada")
+            putString("correo", correo)
+            putString("userId", userId)
+            putBoolean("isLoggedIn", true)
+            apply()
+        }
+    }
 }

@@ -90,7 +90,7 @@ class Verificacion : ComponentActivity() {
     }
 
     private fun verifyCode(correo: String, codigo: String) {
-        val url = "http://192.168.50.23:4000/verifyCode"
+        val url = "http://192.168.1.23:4000/verifyCode"
 
         val jsonParams = JSONObject().apply {
             put("correo_electronico", correo)

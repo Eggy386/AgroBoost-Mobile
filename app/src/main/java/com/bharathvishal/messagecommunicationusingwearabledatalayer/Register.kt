@@ -126,7 +126,7 @@ class Register: ComponentActivity() {
     }
 
     private fun register(nombre: String, apePaterno: String, apeMaterno: String, correo: String, contrasena: String){
-        val url = "http://192.168.50.23:4000/register"
+        val url = "http://192.168.1.23:4000/register"
 
         val jsonParams = JSONObject().apply {
             put("nombre", nombre)

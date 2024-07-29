@@ -53,7 +53,7 @@ class NewPassword : ComponentActivity() {
     }
 
     private fun updatePassword(correo: String, newPassword: String) {
-        val url = "http://192.168.50.23:4000/updatePass"
+        val url = "http://192.168.1.23:4000/updatePass"
 
         val jsonParams = JSONObject().apply {
             put("correo_electronico", correo)

@@ -124,7 +124,7 @@ class Forgot: ComponentActivity() {
     }
 
     private fun send_mail(correo: String) {
-        val url = "http://192.168.50.23:4000/send-mail"
+        val url = "http://192.168.1.23:4000/send-mail"
 
         val jsonParams = JSONObject().apply {
             put("correo_electronico", correo)

@@ -1,6 +1,10 @@
 package com.bharathvishal.messagecommunicationusingwearabledatalayer
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +25,22 @@ class Inicio : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Verifica si el usuario ha iniciado sesión
+        val sharedPref = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
+        Log.v("SharedPreferences", "$isLoggedIn")
+        if (!isLoggedIn) {
+            Log.d("SharedPreferences", "El inicio de sesión no esta almacenado")
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
+
+        UserSingleton.id = sharedPref.getString("userId", null)
+        Log.d("UserId","${UserSingleton.id}")
+
         setContentView(R.layout.inicio)
 
         drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -71,9 +91,25 @@ class Inicio : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             R.id.nav_recordatorios -> navController.navigate(R.id.recordatorioFragment)
             R.id.nav_agregar -> navController.navigate(R.id.agregarFragment)
             R.id.nav_ajustes -> navController.navigate(R.id.ajustesFragment)
+            R.id.nav_logout -> {
+                logout()
+                return true
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun logout() {
+        val sharedPref = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        Log.v("SharedPreferences","Inicio de sesión eliminada")
+        with(sharedPref.edit()) {
+            clear()
+            apply()
+        }
+        val intent = Intent(this, Login::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onSupportNavigateUp(): Boolean {
