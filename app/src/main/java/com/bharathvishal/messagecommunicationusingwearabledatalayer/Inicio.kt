@@ -39,7 +39,6 @@ class Inicio : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
         }
 
         UserSingleton.id = sharedPref.getString("userId", null)
-        Log.d("UserId","${UserSingleton.id}")
 
         setContentView(R.layout.inicio)
 

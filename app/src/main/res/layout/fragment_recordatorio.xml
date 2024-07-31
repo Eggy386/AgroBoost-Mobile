@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecordatorioFragment">
+    tools:context=".RecordatorioFragment"
+    android:background="@color/background">
 
-    <ScrollView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="¡Registra un Nuevo Recordatorio!"
+            android:textSize="24sp"
+            android:fontFamily="@font/hind_madurai"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginBottom="32dp"/>
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="256dp"
+            android:layout_height="256dp"
+            android:src="@drawable/undraw_reminder" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registra un nuevo recordatorio para mantenerte al tanto de tus pendientes y compromisos."
+            android:textColor="@color/very_dark_gray"
+            android:textSize="18sp"
+            android:layout_marginTop="32dp"
+            android:justificationMode="inter_word"
+            android:fontFamily="@font/hind_madurai"/>
+    </LinearLayout>
+
+    <!--<ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -83,7 +120,7 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </ScrollView>-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addRecordatorio"

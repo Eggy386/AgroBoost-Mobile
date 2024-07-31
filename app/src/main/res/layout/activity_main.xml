@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--<com.google.android.material.appbar.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -163,6 +163,6 @@
         </LinearLayout>
 
 
-    </ScrollView>-->
+    </ScrollView>
 
 </RelativeLayout>

@@ -7,7 +7,53 @@
     tools:context=".CultivoFragment"
     android:paddingHorizontal="16dp">
 
-    <ScrollView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="¡Empieza a cultivar tu propio camino!"
+            android:textSize="24sp"
+            android:fontFamily="@font/hind_madurai"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginBottom="32dp"/>
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="256dp"
+            android:layout_height="256dp"
+            android:src="@drawable/undraw_environment" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Parece que aún no has registrado ningún cultivo. ¿Por qué no comienzas tu viaje agrícola ahora mismo?."
+            android:textColor="@color/very_dark_gray"
+            android:textSize="18sp"
+            android:layout_marginVertical="32dp"
+            android:justificationMode="inter_word"
+            android:fontFamily="@font/hind_madurai"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrar cultivo"
+            android:textColor="@color/background"
+            android:textSize="20sp"
+            android:fontFamily="@font/hind_madurai"
+            android:padding="16dp"
+            android:textAllCaps="false"
+            android:background="@drawable/button_filled"
+            android:textFontWeight="600"/>
+    </LinearLayout>
+
+    <!--<ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarThumbVertical="@null">
@@ -410,6 +456,6 @@
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </ScrollView>-->
 
 </FrameLayout>

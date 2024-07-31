@@ -52,7 +52,7 @@ class CultivoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        circularProgressBarNitrogeno = view.findViewById(R.id.circularProgressBarNitrogenoInfo)
+        /*circularProgressBarNitrogeno = view.findViewById(R.id.circularProgressBarNitrogenoInfo)
         textViewNitrogenoProgress = view.findViewById(R.id.textViewNitrogenoProgressInfo)
         val nitrogenoProgress = 82f
 
@@ -104,7 +104,7 @@ class CultivoFragment : Fragment() {
         }
 
         // Actualizar el texto del TextView con el progreso
-        textViewPotasioProgress.text = "${potasioProgress.toInt()} PPM"
+        textViewPotasioProgress.text = "${potasioProgress.toInt()} PPM"*/
     }
 
     companion object {
