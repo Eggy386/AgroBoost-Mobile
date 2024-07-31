@@ -7,455 +7,459 @@
     tools:context=".CultivoFragment"
     android:paddingHorizontal="16dp">
 
-    <LinearLayout
+    <ViewSwitcher
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="¡Empieza a cultivar tu propio camino!"
-            android:textSize="24sp"
-            android:fontFamily="@font/hind_madurai"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginBottom="32dp"/>
-
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="256dp"
-            android:layout_height="256dp"
-            android:src="@drawable/undraw_environment" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Parece que aún no has registrado ningún cultivo. ¿Por qué no comienzas tu viaje agrícola ahora mismo?."
-            android:textColor="@color/very_dark_gray"
-            android:textSize="18sp"
-            android:layout_marginVertical="32dp"
-            android:justificationMode="inter_word"
-            android:fontFamily="@font/hind_madurai"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Registrar cultivo"
-            android:textColor="@color/background"
-            android:textSize="20sp"
-            android:fontFamily="@font/hind_madurai"
-            android:padding="16dp"
-            android:textAllCaps="false"
-            android:background="@drawable/button_filled"
-            android:textFontWeight="600"/>
-    </LinearLayout>
-
-    <!--<ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbarThumbVertical="@null">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <TextView
-                android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Estado del cultivo"
-                android:textSize="26dp"
+                android:text="¡Empieza a cultivar tu propio camino!"
+                android:textSize="24sp"
                 android:fontFamily="@font/hind_madurai"
-                android:textColor="@color/primary"
+                android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textStyle="bold"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginBottom="32dp"/>
+
+            <ImageView
+                android:layout_width="256dp"
+                android:layout_height="256dp"
+                android:src="@drawable/undraw_environment" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Parece que aún no has registrado ningún cultivo. ¿Por qué no comienzas tu viaje agrícola ahora mismo?."
+                android:textColor="@color/very_dark_gray"
+                android:textSize="18sp"
+                android:layout_marginVertical="32dp"
+                android:justificationMode="inter_word"
+                android:fontFamily="@font/hind_madurai"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registrar cultivo"
+                android:textColor="@color/background"
+                android:textSize="20sp"
+                android:fontFamily="@font/hind_madurai"
+                android:padding="16dp"
+                android:textAllCaps="false"
+                android:background="@drawable/button_filled"
+                android:textFontWeight="600"/>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarThumbVertical="@null">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginVertical="8dp">
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="100dp"
-                    android:layout_height="110dp"
-                    android:src="@mipmap/plant"
-                    android:layout_marginRight="12dp"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Las frambuesas se encuentran en plena floración, indicando un buen estado de desarrollo. La salud general de las plantas es positiva. Se prevé que la fecha estimada de cosecha es del 25 de Enero del 2024."
-                    android:textColor="@color/very_dark_gray"
-                    android:textSize="16sp"
-                    android:justificationMode="inter_word"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Acciones sugeridas"
-                android:textSize="20sp"
-                android:textColor="@color/secundary_one"
-                android:fontFamily="@font/hind_madurai"
-                android:textFontWeight="600"/>
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Dado que las frambuesas están en plena floración, se sugiere un monitoreo cercano para garantizar una polinización adecuada. Además, mantener un suministro de agua constante es esencial durante esta fase crítica."
-                android:textColor="@color/very_dark_gray"
-                android:textSize="16sp"
-                android:justificationMode="inter_word"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginVertical="24dp">
+                    android:text="Estado del cultivo"
+                    android:textSize="26dp"
+                    android:fontFamily="@font/hind_madurai"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
+                    android:layout_marginTop="16dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="6dp">
+                    android:layout_marginVertical="8dp">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="100dp"
+                        android:layout_height="110dp"
+                        android:src="@mipmap/plant"
+                        android:layout_marginRight="12dp"/>
 
                     <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nutientes"
-                        android:layout_weight="1"
-                        android:textSize="26dp"
-                        android:fontFamily="@font/hind_madurai"
-                        android:textColor="@color/primary"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Ver datalle"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-                    <LinearLayout
+                        android:id="@+id/textView4"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp">
-
-                            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                                android:id="@+id/circularProgressBarNitrogenoInfo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                app:cpb_background_progressbar_color="@color/background"
-                                app:cpb_progressbar_color="@color/red"
-                                app:cpb_progressbar_width="15dp"
-                                app:cpb_background_progressbar_width="5dp"
-                                app:cpb_round_border="true"
-                                app:cpb_start_angle="270"/>
-
-                            <TextView
-                                android:id="@+id/textViewNitrogenoProgressInfo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="0%"
-                                android:textColor="@color/red"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/hind_madurai"
-                                android:layout_marginHorizontal="18dp"
-                                android:textAlignment="center"/>
-                        </RelativeLayout>
-
-                        <TextView
-                            android:id="@+id/textView11"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Nitrógeno"
-                            android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="@color/secundary_one"
-                            android:layout_marginTop="6dp"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp">
-
-                            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                                android:id="@+id/circularProgressBarFosforoInfo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                app:cpb_background_progressbar_color="@color/background"
-                                app:cpb_progressbar_color="@color/yellow"
-                                app:cpb_progressbar_width="15dp"
-                                app:cpb_background_progressbar_width="5dp"
-                                app:cpb_round_border="true"
-                                app:cpb_start_angle="270"/>
-
-                            <TextView
-                                android:id="@+id/textViewFosforoProgressInfo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="0%"
-                                android:textColor="@color/yellow"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/hind_madurai"
-                                android:layout_marginHorizontal="18dp"
-                                android:textAlignment="center"/>
-                        </RelativeLayout>
-
-                        <TextView
-                            android:id="@+id/textView12"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Fósforo"
-                            android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="@color/secundary_one"
-                            android:layout_marginTop="6dp"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp">
-
-                            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                                android:id="@+id/circularProgressBarPotasioInfo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                app:cpb_background_progressbar_color="@color/background"
-                                app:cpb_progressbar_color="@color/blue"
-                                app:cpb_progressbar_width="15dp"
-                                app:cpb_background_progressbar_width="5dp"
-                                app:cpb_round_border="true"
-                                app:cpb_start_angle="270"/>
-
-                            <TextView
-                                android:id="@+id/textViewPotasioProgressInfo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="0%"
-                                android:textColor="@color/blue"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/hind_madurai"
-                                android:layout_marginHorizontal="18dp"
-                                android:textAlignment="center"/>
-                        </RelativeLayout>
-
-                        <TextView
-                            android:id="@+id/textView13"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Potasio"
-                            android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="@color/secundary_one"
-                            android:layout_marginTop="6dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/textView17"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="PH"
-                        android:textSize="26dp"
-                        android:fontFamily="@font/hind_madurai"
-                        android:textColor="@color/primary"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/textView18"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Ver detalle"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"/>
+                        android:text="Las frambuesas se encuentran en plena floración, indicando un buen estado de desarrollo. La salud general de las plantas es positiva. Se prevé que la fecha estimada de cosecha es del 25 de Enero del 2024."
+                        android:textColor="@color/very_dark_gray"
+                        android:textSize="16sp"
+                        android:justificationMode="inter_word"/>
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Excelente"
+                    android:text="Acciones sugeridas"
                     android:textSize="20sp"
+                    android:textColor="@color/secundary_one"
                     android:fontFamily="@font/hind_madurai"
-                    android:textColor="@color/green"
                     android:textFontWeight="600"/>
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/textView8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="El pH del suelo se encuentra dentro de los parámetros normales."
+                    android:text="Dado que las frambuesas están en plena floración, se sugiere un monitoreo cercano para garantizar una polinización adecuada. Además, mantener un suministro de agua constante es esencial durante esta fase crítica."
                     android:textColor="@color/very_dark_gray"
                     android:textSize="16sp"
                     android:justificationMode="inter_word"/>
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="24dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginVertical="24dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="6dp">
+
+                        <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nutientes"
+                            android:layout_weight="1"
+                            android:textSize="26dp"
+                            android:fontFamily="@font/hind_madurai"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Ver datalle"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp">
+
+                                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                                    android:id="@+id/circularProgressBarNitrogenoInfo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cpb_background_progressbar_color="@color/background"
+                                    app:cpb_progressbar_color="@color/red"
+                                    app:cpb_progressbar_width="15dp"
+                                    app:cpb_background_progressbar_width="5dp"
+                                    app:cpb_round_border="true"
+                                    app:cpb_start_angle="270"/>
+
+                                <TextView
+                                    android:id="@+id/textViewNitrogenoProgressInfo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="0%"
+                                    android:textColor="@color/red"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/hind_madurai"
+                                    android:layout_marginHorizontal="18dp"
+                                    android:textAlignment="center"/>
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/textView11"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Nitrógeno"
+                                android:textAlignment="center"
+                                android:textSize="20sp"
+                                android:textColor="@color/secundary_one"
+                                android:layout_marginTop="6dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp">
+
+                                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                                    android:id="@+id/circularProgressBarFosforoInfo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cpb_background_progressbar_color="@color/background"
+                                    app:cpb_progressbar_color="@color/yellow"
+                                    app:cpb_progressbar_width="15dp"
+                                    app:cpb_background_progressbar_width="5dp"
+                                    app:cpb_round_border="true"
+                                    app:cpb_start_angle="270"/>
+
+                                <TextView
+                                    android:id="@+id/textViewFosforoProgressInfo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="0%"
+                                    android:textColor="@color/yellow"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/hind_madurai"
+                                    android:layout_marginHorizontal="18dp"
+                                    android:textAlignment="center"/>
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/textView12"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Fósforo"
+                                android:textAlignment="center"
+                                android:textSize="20sp"
+                                android:textColor="@color/secundary_one"
+                                android:layout_marginTop="6dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp">
+
+                                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                                    android:id="@+id/circularProgressBarPotasioInfo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cpb_background_progressbar_color="@color/background"
+                                    app:cpb_progressbar_color="@color/blue"
+                                    app:cpb_progressbar_width="15dp"
+                                    app:cpb_background_progressbar_width="5dp"
+                                    app:cpb_round_border="true"
+                                    app:cpb_start_angle="270"/>
+
+                                <TextView
+                                    android:id="@+id/textViewPotasioProgressInfo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="0%"
+                                    android:textColor="@color/blue"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/hind_madurai"
+                                    android:layout_marginHorizontal="18dp"
+                                    android:textAlignment="center"/>
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/textView13"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Potasio"
+                                android:textAlignment="center"
+                                android:textSize="20sp"
+                                android:textColor="@color/secundary_one"
+                                android:layout_marginTop="6dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/textView17"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="PH"
+                            android:textSize="26dp"
+                            android:fontFamily="@font/hind_madurai"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/textView18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Ver detalle"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView19"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textView15"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Humedad"
-                        android:textSize="26dp"
+                        android:text="Excelente"
+                        android:textSize="20sp"
                         android:fontFamily="@font/hind_madurai"
-                        android:textColor="@color/primary"
-                        android:textStyle="bold"/>
+                        android:textColor="@color/green"
+                        android:textFontWeight="600"/>
 
                     <TextView
-                        android:id="@+id/textView20"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textView16"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Ver datalle"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"/>
+                        android:text="El pH del suelo se encuentra dentro de los parámetros normales."
+                        android:textColor="@color/very_dark_gray"
+                        android:textSize="16sp"
+                        android:justificationMode="inter_word"/>
+
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView21"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Excelente"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/hind_madurai"
-                    android:textColor="@color/green"
-                    android:textFontWeight="600"/>
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Esta condición favorece la absorción de nutrientes y promueve un desarrollo saludable."
-                    android:textColor="@color/very_dark_gray"
-                    android:textSize="16sp"
-                    android:justificationMode="inter_word"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginBottom="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:layout_marginVertical="24dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Humedad"
+                            android:textSize="26dp"
+                            android:fontFamily="@font/hind_madurai"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/textView20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Ver datalle"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView23"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textView21"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Plagas"
-                        android:textSize="26dp"
+                        android:text="Excelente"
+                        android:textSize="20sp"
                         android:fontFamily="@font/hind_madurai"
-                        android:textColor="@color/primary"
-                        android:textStyle="bold"/>
+                        android:textColor="@color/green"
+                        android:textFontWeight="600"/>
 
                     <TextView
-                        android:id="@+id/textView24"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textView22"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Ver datalle"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"/>
+                        android:text="Esta condición favorece la absorción de nutrientes y promueve un desarrollo saludable."
+                        android:textColor="@color/very_dark_gray"
+                        android:textSize="16sp"
+                        android:justificationMode="inter_word"/>
+
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView25"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Alerta"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/hind_madurai"
-                    android:textColor="@color/yellow"
-                    android:textFontWeight="600"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
 
-                <TextView
-                    android:id="@+id/textView26"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tu cultivo está en riesgo de plaga, Para obtener información detallada sobre cómo enfrentar las infestaciones de plagas, consulta aquí."
-                    android:textColor="@color/very_dark_gray"
-                    android:textSize="16sp"
-                    android:justificationMode="inter_word"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView23"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Plagas"
+                            android:textSize="26dp"
+                            android:fontFamily="@font/hind_madurai"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/textView24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Ver datalle"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView25"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Alerta"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/hind_madurai"
+                        android:textColor="@color/yellow"
+                        android:textFontWeight="600"/>
+
+                    <TextView
+                        android:id="@+id/textView26"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tu cultivo está en riesgo de plaga, Para obtener información detallada sobre cómo enfrentar las infestaciones de plagas, consulta aquí."
+                        android:textColor="@color/very_dark_gray"
+                        android:textSize="16sp"
+                        android:justificationMode="inter_word"/>
+
+                </LinearLayout>
 
             </LinearLayout>
+        </ScrollView>
 
-        </LinearLayout>
-    </ScrollView>-->
-
+    </ViewSwitcher>
 </FrameLayout>

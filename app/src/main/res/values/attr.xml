@@ -8,4 +8,7 @@
     <attr name="CardBGColor" format="reference|color" />
 
     <attr name="TextInfoColor" format="reference|color" />
+
+    <attr name="colorPrimary" format="reference|color"/>
+    <attr name="colorOnSurface" format="reference|color"/>
 </resources>

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.NumberPicker
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO: Rename parameter arguments, choose names that match
@@ -19,19 +20,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [RecordatorioFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RecordatorioFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     private lateinit var numPickerMin: NumberPicker
     private lateinit var numPickerSeg: NumberPicker
     private lateinit var numPickerAm: NumberPicker
+    private var selectedDays: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +43,6 @@ class RecordatorioFragment : Fragment() {
         dialog.setContentView(R.layout.bottomsheet_layout_recordatorio)
 
         val cancelButton = dialog.findViewById<Button>(R.id.buttonCancelRecordatorio)
-
         cancelButton.setOnClickListener { dialog.dismiss() }
 
         numPickerMin = dialog.findViewById(R.id.numPickerMinRec)
@@ -60,7 +55,7 @@ class RecordatorioFragment : Fragment() {
         numPickerSeg.minValue = 0
         numPickerSeg.maxValue = 59
 
-        val str = arrayOf<String>("AM", "PM")
+        val str = arrayOf("AM", "PM")
         numPickerAm.minValue = 0
         numPickerAm.maxValue = (str.size - 1)
         numPickerAm.displayedValues = str
@@ -73,13 +68,41 @@ class RecordatorioFragment : Fragment() {
             attributes.windowAnimations = R.style.DialogAnimation
             setGravity(Gravity.BOTTOM)
         }
+
+        setupDayCheckBoxes(dialog)
+    }
+
+    private fun setupDayCheckBoxes(dialog: Dialog) {
+        val days = listOf(
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnL), PickDayOfWeek.MONDAY),
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnM), PickDayOfWeek.TUESDAY),
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnX), PickDayOfWeek.WEDNESDAY),
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnJ), PickDayOfWeek.THURSDAY),
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnV), PickDayOfWeek.FRIDAY),
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnS), PickDayOfWeek.SATURDAY),
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnD), PickDayOfWeek.SUNDAY)
+        )
+
+        days.forEach { (checkBox, day) ->
+            checkBox.isChecked = hasDayOfWeek(selectedDays, day)
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    selectedDays += day.value
+                } else {
+                    selectedDays -= day.value
+                }
+            }
+        }
+    }
+
+    private fun hasDayOfWeek(value: Int, day: PickDayOfWeek): Boolean {
+        return value and day.value != 0
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_recordatorio, container, false)
 
         val fab = view.findViewById<FloatingActionButton>(R.id.addRecordatorio)
@@ -91,15 +114,6 @@ class RecordatorioFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RecordatorioFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             RecordatorioFragment().apply {

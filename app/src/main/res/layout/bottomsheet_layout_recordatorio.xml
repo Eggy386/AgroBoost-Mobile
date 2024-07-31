@@ -114,15 +114,47 @@
                 android:textSize="26sp"/>
 
             <LinearLayout
+                android:id="@+id/radioGroupDias"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginVertical="10dp">
 
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton" />
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/btnD"
+                    style="@style/CircularButton"
+                    android:text="D" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/btnL"
+                    style="@style/CircularButton"
+                    android:text="L" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/btnM"
+                    style="@style/CircularButton"
+                    android:text="M" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/btnX"
+                    style="@style/CircularButton"
+                    android:text="X" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/btnJ"
+                    style="@style/CircularButton"
+                    android:text="J" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/btnV"
+                    style="@style/CircularButton"
+                    android:text="V"/>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/btnS"
+                    style="@style/CircularButton"
+                    android:text="S" />
 
             </LinearLayout>
         </LinearLayout>
