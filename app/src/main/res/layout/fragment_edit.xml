@@ -144,7 +144,8 @@
                         android:text="frank@gmail.com"
                         android:background="@drawable/text_input"
                         android:padding="12dp"
-                        android:fontFamily="@font/hind_madurai"/>
+                        android:fontFamily="@font/hind_madurai"
+                        android:enabled="true"/>
                 </LinearLayout>
             </LinearLayout>
 

@@ -1,0 +1,39 @@
+package com.bharathvishal.messagecommunicationusingwearabledatalayer
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Switch
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+
+class RiegoAdapter(
+    private val riegos: List<Riego>,
+    private val onSwitchToggle: (Riego) -> Unit
+) : RecyclerView.Adapter<RiegoAdapter.RiegoViewHolder>() {
+
+    inner class RiegoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val horaRiego: TextView = view.findViewById(R.id.textViewHoraRiego)
+        val diasRiego: TextView = view.findViewById(R.id.textViewDiasRiego)
+        val switchActivo: Switch = view.findViewById(R.id.switchActivo)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RiegoViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_riego, parent, false)
+        return RiegoViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: RiegoViewHolder, position: Int) {
+        var riego = riegos[position]
+        holder.horaRiego.text = riego.hora_riego
+        holder.diasRiego.text = riego.dias_riego
+        holder.switchActivo.isChecked = riego.activo
+
+        holder.switchActivo.setOnCheckedChangeListener { _, isChecked ->
+            riego.activo = isChecked
+            onSwitchToggle(riego)
+        }
+    }
+
+    override fun getItemCount(): Int = riegos.size
+}

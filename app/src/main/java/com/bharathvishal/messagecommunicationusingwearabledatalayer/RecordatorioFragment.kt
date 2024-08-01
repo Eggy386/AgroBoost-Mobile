@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.NumberPicker
 import android.widget.ScrollView
@@ -29,7 +30,9 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,6 +50,7 @@ class RecordatorioFragment : Fragment() {
     private lateinit var recyclerViewRecordatorios: RecyclerView
 
     private lateinit var adapter: RecordatorioAdapter
+    private lateinit var dialog: Dialog
 
     private lateinit var layoutNoRecordatorio: LinearLayout
     private lateinit var layoutConRecordatorio: ScrollView
@@ -173,6 +177,72 @@ class RecordatorioFragment : Fragment() {
         requestQueue.add(jsonObjectRequest)
     }
 
+    private fun guardarRecordatorio(dialog: Dialog) {
+        val url = "http://192.168.1.23:4000/recordatorio"
+
+        val nombre = dialog.findViewById<EditText>(R.id.editTextText).text.toString()
+        val horas = numPickerMin.value
+        val minutos = numPickerSeg.value
+        val amPm = numPickerAm.displayedValues[numPickerAm.value]
+
+        Log.d("Fecha", "$horas:$minutos $amPm")
+
+        val calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Mexico_City")).apply {
+            set(Calendar.HOUR, horas)
+            set(Calendar.MINUTE, minutos)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+            set(Calendar.AM_PM, if (amPm == "AM") Calendar.PM else Calendar.AM)
+        }
+
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).apply {
+            timeZone = TimeZone.getTimeZone("UTC")
+        }
+        val isoDate = inputFormat.format(calendar.time)
+        val dias = mutableListOf<String>()
+
+        if (dialog.findViewById<MaterialCheckBox>(R.id.btnD).isChecked) dias.add("Domingo")
+        if (dialog.findViewById<MaterialCheckBox>(R.id.btnL).isChecked) dias.add("Lunes")
+        if (dialog.findViewById<MaterialCheckBox>(R.id.btnM).isChecked) dias.add("Martes")
+        if (dialog.findViewById<MaterialCheckBox>(R.id.btnX).isChecked) dias.add("Miércoles")
+        if (dialog.findViewById<MaterialCheckBox>(R.id.btnJ).isChecked) dias.add("Jueves")
+        if (dialog.findViewById<MaterialCheckBox>(R.id.btnV).isChecked) dias.add("Viernes")
+        if (dialog.findViewById<MaterialCheckBox>(R.id.btnS).isChecked) dias.add("Sabado")
+
+        // Crea el objeto JSON para enviar
+        val jsonParams = JSONObject().apply {
+            put("id_usuario", UserSingleton.id)
+            put("nombre_recordatorio", nombre)
+            put("hora_recordatorio", isoDate)
+            put("dias_recordatorio", JSONArray(dias))
+            put("activo", true)
+        }
+
+        Log.d("RecordatorioFragment", "JSON enviado: $jsonParams")
+
+        val requestQueue = Volley.newRequestQueue(requireContext())
+
+        val request = object : JsonObjectRequest(
+            Method.POST, url, jsonParams,
+            Response.Listener { response ->
+                Log.d("RecordatorioFragment", "Recordatorio creado: $response")
+                dialog.dismiss()
+                fetchRecordatorios() // Actualiza la lista de recordatorios
+            },
+            Response.ErrorListener { error ->
+                Log.e("RecordatorioFragment", "Error al crear el recordatorio", error)
+            }
+        ) {
+            // Redefine el método para obtener cabeceras
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Content-Type"] = "application/json"
+                return headers
+            }
+        }
+
+        requestQueue.add(request)
+    }
 
     private fun showBottomDialog() {
         val dialog = Dialog(requireContext())
@@ -207,6 +277,10 @@ class RecordatorioFragment : Fragment() {
         }
 
         setupDayCheckBoxes(dialog)
+
+        dialog.findViewById<Button>(R.id.buttonSaveRecordatorio).setOnClickListener {
+            guardarRecordatorio(dialog)
+        }
     }
 
     private fun setupDayCheckBoxes(dialog: Dialog) {
