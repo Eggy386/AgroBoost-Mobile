@@ -125,7 +125,8 @@
                         android:ems="10"
                         android:focusable="false"
                         android:inputType="time"
-                        android:padding="12dp" />
+                        android:padding="12dp"
+                        android:hint="Ingrese la hora de aplicación"/>
 
                 </LinearLayout>
 

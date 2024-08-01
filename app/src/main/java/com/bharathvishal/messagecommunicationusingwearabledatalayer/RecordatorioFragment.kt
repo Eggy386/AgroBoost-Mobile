@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,9 +12,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.NumberPicker
+import android.widget.ScrollView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +44,12 @@ class RecordatorioFragment : Fragment() {
     private lateinit var numPickerSeg: NumberPicker
     private lateinit var numPickerAm: NumberPicker
     private var selectedDays: Int = 0
+    private lateinit var recyclerViewRecordatorios: RecyclerView
+
+    private lateinit var adapter: RecordatorioAdapter
+
+    private lateinit var layoutNoRecordatorio: LinearLayout
+    private lateinit var layoutConRecordatorio: ScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +58,121 @@ class RecordatorioFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_recordatorio, container, false)
+
+        val fab = view.findViewById<FloatingActionButton>(R.id.addRecordatorio)
+        fab.setOnClickListener {
+            showBottomDialog()
+        }
+
+        // Inicializa el adaptador y pasa la referencia a la función
+        val recordatorios = mutableListOf<Recordatorio>() // Tu lista de recordatorios vacía
+
+        adapter = RecordatorioAdapter(recordatorios) { recordatorioId, activo ->
+            actualizarEstadoRecordatorio(recordatorioId, activo)
+        }
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewRecordatorios)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        layoutNoRecordatorio = view.findViewById(R.id.layoutNoRecordatorio)
+        layoutConRecordatorio = view.findViewById(R.id.layoutConRecordatorio)
+
+        recyclerViewRecordatorios = view.findViewById(R.id.recyclerViewRecordatorios)
+        recyclerViewRecordatorios.layoutManager = LinearLayoutManager(requireContext())
+
+        fetchRecordatorios()
+    }
+
+    private fun fetchRecordatorios() {
+        val userId = UserSingleton.id
+        val url = "http://192.168.1.23:4000/recordatorio/$userId"
+
+        val requestQueue = Volley.newRequestQueue(requireContext())
+
+        val jsonArrayRequest = JsonArrayRequest(
+            Request.Method.GET, url, null,
+            Response.Listener<JSONArray> { response ->
+                Log.v("Recordatorios", "$response")
+                if (response.length() == 0) {
+                    layoutNoRecordatorio.visibility = View.VISIBLE
+                    layoutConRecordatorio.visibility = View.GONE
+                } else {
+                    layoutNoRecordatorio.visibility = View.GONE
+                    layoutConRecordatorio.visibility = View.VISIBLE
+                    val recordatorios = mutableListOf<Recordatorio>()
+                    for (i in 0 until response.length()) {
+                        val recordatorioJson = response.getJSONObject(i)
+                        try {
+                            val id = recordatorioJson.getString("_id")
+                            val nombre = recordatorioJson.getString("nombre_recordatorio")
+                            val hora = recordatorioJson.getString("hora_recordatorio")
+                            val diasArray = recordatorioJson.getJSONArray("dias_recordatorio")
+                            val activo = recordatorioJson.getBoolean("activo")
+
+                            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+                            val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+                            val date = inputFormat.parse(hora)
+                            val horaFormateada = outputFormat.format(date)
+
+                            val diasList = mutableListOf<String>()
+                            for (j in 0 until diasArray.length()) {
+                                diasList.add(diasArray.getString(j))
+                            }
+                            val dias = diasList.joinToString(", ")
+
+                            val recordatorio = Recordatorio(id, nombre, dias, horaFormateada, activo)
+                            recordatorios.add(recordatorio)
+                        } catch (e: JSONException) {
+                            Log.e("RecordatorioFragment", "Error parsing recordatorio JSON", e)
+                        }
+                    }
+                    // Actualiza el adaptador con los nuevos datos
+                    adapter.updateRecordatorios(recordatorios)
+                }
+            },
+            Response.ErrorListener { error ->
+                Log.e("RecordatorioFragment", "Error fetching recordatorios", error)
+            }
+        )
+
+        requestQueue.add(jsonArrayRequest)
+    }
+
+    private fun actualizarEstadoRecordatorio(recordatorioId: String, activo: Boolean) {
+        val url = "http://192.168.1.23:4000/recordatorio/$recordatorioId"
+
+        val requestQueue = Volley.newRequestQueue(requireContext())
+
+        val requestBody = JSONObject().apply {
+            put("activo", activo)
+        }
+
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.PUT, url, requestBody,
+            Response.Listener { response ->
+                Log.d("RecordatorioFragment", "Recordatorio actualizado: $response")
+            },
+            Response.ErrorListener { error ->
+                Log.e("RecordatorioFragment", "Error al actualizar el recordatorio", error)
+            }
+        )
+
+        requestQueue.add(jsonObjectRequest)
+    }
+
 
     private fun showBottomDialog() {
         val dialog = Dialog(requireContext())
@@ -97,20 +234,6 @@ class RecordatorioFragment : Fragment() {
 
     private fun hasDayOfWeek(value: Int, day: PickDayOfWeek): Boolean {
         return value and day.value != 0
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_recordatorio, container, false)
-
-        val fab = view.findViewById<FloatingActionButton>(R.id.addRecordatorio)
-        fab.setOnClickListener {
-            showBottomDialog()
-        }
-
-        return view
     }
 
     companion object {

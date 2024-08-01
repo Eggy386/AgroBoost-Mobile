@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.NumberPicker
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO: Rename parameter arguments, choose names that match
@@ -32,6 +33,8 @@ class RiegoFragment : Fragment() {
     private lateinit var numPickerMin: NumberPicker
     private lateinit var numPickerSeg: NumberPicker
     private lateinit var numPickerAm: NumberPicker
+
+    private var selectedDays: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +76,35 @@ class RiegoFragment : Fragment() {
             attributes.windowAnimations = R.style.DialogAnimation
             setGravity(Gravity.BOTTOM)
         }
+
+        setupDayCheckBoxes(dialog)
+    }
+
+    private fun setupDayCheckBoxes(dialog: Dialog) {
+        val days = listOf(
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnL), PickDayOfWeek.MONDAY),
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnM), PickDayOfWeek.TUESDAY),
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnX), PickDayOfWeek.WEDNESDAY),
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnJ), PickDayOfWeek.THURSDAY),
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnV), PickDayOfWeek.FRIDAY),
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnS), PickDayOfWeek.SATURDAY),
+            Pair(dialog.findViewById<MaterialCheckBox>(R.id.btnD), PickDayOfWeek.SUNDAY)
+        )
+
+        days.forEach { (checkBox, day) ->
+            checkBox.isChecked = hasDayOfWeek(selectedDays, day)
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    selectedDays += day.value
+                } else {
+                    selectedDays -= day.value
+                }
+            }
+        }
+    }
+
+    private fun hasDayOfWeek(value: Int, day: PickDayOfWeek): Boolean {
+        return value and day.value != 0
     }
 
     override fun onCreateView(
