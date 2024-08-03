@@ -1,17 +1,21 @@
 package com.bharathvishal.messagecommunicationusingwearabledatalayer
 
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
@@ -51,6 +55,10 @@ class HomeFragment : Fragment() {
     private lateinit var layoutHumedad: LinearLayout
     private lateinit var layoutTemperatura: LinearLayout
     private lateinit var layoutNutrientes: LinearLayout
+
+    private lateinit var imageCultivo: ImageView
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var cultivoAdapter: CultivoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,6 +111,10 @@ class HomeFragment : Fragment() {
         circularProgressBarPotasio = view.findViewById(R.id.circularProgressBarPotasio)
         textViewPotasioProgress = view.findViewById(R.id.textViewPotasioProgress)
 
+        // Inicializar RecyclerView
+        recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewCultivo)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
         // Llamar a la función para obtener los datos del dispositivo
         obtenerDatosDispositivo()
     }
@@ -116,11 +128,37 @@ class HomeFragment : Fragment() {
         val jsonArrayRequest = JsonArrayRequest(
             url,
             Response.Listener { response ->
+                Log.v("obtenerDatosDispositivo", "$response")
                 try {
+                    val dispositivos = mutableListOf<Dispositivo>()
                     for (i in 0 until response.length()) {
-                        val dispositivo = response.getJSONObject(i)
-                        actualizarGraficas(dispositivo)
+                        val dispositivoJson = response.getJSONObject(i)
+                        val idCultivoJson = dispositivoJson.getJSONObject("id_cultivo")
+
+                        val cultivo = Cultivo(
+                            id = idCultivoJson.getString("_id"),
+                            tipoCultivo = idCultivoJson.getString("tipo_cultivo"),
+                            tipoRiego = idCultivoJson.getString("tipo_riego"),
+                            programaRiego = idCultivoJson.getString("programa_riego"),
+                            metodoFertilizacion = idCultivoJson.getString("metodo_fertilizacion"),
+                            fechaFertilizacion = idCultivoJson.getString("fecha_fertilizacion"),
+                            cantidadFertilizante = idCultivoJson.getInt("cantidad_fertilizante"),
+                            controlPlagas = idCultivoJson.getString("control_plagas"),
+                            tecnicaPolinizacion = idCultivoJson.getString("tecnica_polinizacion"),
+                            medidasSiembra = idCultivoJson.getInt("medidas_siembra"),
+                            fechaPrevista = idCultivoJson.getString("fecha_prevista"),
+                            idUsuario = idCultivoJson.getString("id_usuario")
+                        )
+                        val dispositivo = Dispositivo(
+                            id = dispositivoJson.getString("_id"),
+                            nombreDispositivo = dispositivoJson.getString("nombre_dispositivo"),
+                            datos = dispositivoJson.get("datos"),
+                            idCultivo = cultivo,
+                            idUsuario = dispositivoJson.getString("id_usuario")
+                        )
+                        dispositivos.add(dispositivo)
                     }
+                    handleCultivos(dispositivos)
                 } catch (e: Exception) {
                     Log.e("HomeFragment", "Error al procesar la respuesta JSON", e)
                 }
@@ -133,83 +171,122 @@ class HomeFragment : Fragment() {
         requestQueue.add(jsonArrayRequest)
     }
 
-    private fun actualizarGraficas(dispositivo: JSONObject) {
-        // Verificar si el dispositivo tiene datos de humedad y temperatura como arrays
-        if (dispositivo.has("datos")) {
-            val datos = dispositivo.get("datos")
-            if (datos is JSONArray) {
-                // Verificar si el dispositivo es de tipo Humedad o Temperatura y extraer el valor
-                when (dispositivo.getString("nombre_dispositivo")) {
-                    "Sensor de Humedad" -> {
-                        val humedad = datos.getDouble(datos.length() - 1).toFloat()
-                        circularProgressBarHumedad.apply {
-                            progress = humedad
-                            textViewHumedadProgress.text = "$humedad%"
-                            progressMax = 100f
-                            progressBarWidth = 15f
-                            backgroundProgressBarWidth = 5f
-                            backgroundProgressBarColor = ContextCompat.getColor(requireContext(), R.color.background)
-                            progressBarColor = ContextCompat.getColor(requireContext(), R.color.blue)
-                            startAngle = 0f
-                        }
-                    }
-                    "Sensor de Temperatura" -> {
-                        val temperatura = datos.getDouble(datos.length() - 1).toFloat()
-                        circularProgressBarTemperatura.apply {
-                            progress = temperatura
-                            textViewTemperaturaProgress.text = "$temperatura°C"
-                            progressMax = 40f
-                            progressBarWidth = 15f
-                            backgroundProgressBarWidth = 5f
-                            backgroundProgressBarColor = ContextCompat.getColor(requireContext(), R.color.background)
-                            progressBarColor = ContextCompat.getColor(requireContext(), R.color.red)
-                            startAngle = 0f
-                        }
+    fun handleCultivos(dispositivos: List<Dispositivo>) {
+        val cultivos = dispositivos.map { it.idCultivo }.distinctBy { it.id }
+        if (cultivos.isEmpty()) {
+            view?.findViewById<LinearLayout>(R.id.layoutNoCultivo)?.visibility = View.VISIBLE
+            view?.findViewById<LinearLayout>(R.id.layoutUnCultivo)?.visibility = View.GONE
+            view?.findViewById<RecyclerView>(R.id.recyclerViewCultivo)?.visibility = View.GONE
+        } else if (cultivos.size == 1) {
+            view?.findViewById<LinearLayout>(R.id.layoutNoCultivo)?.visibility = View.GONE
+            view?.findViewById<LinearLayout>(R.id.layoutUnCultivo)?.visibility = View.VISIBLE
+            view?.findViewById<RecyclerView>(R.id.recyclerViewCultivo)?.visibility = View.GONE
+            // Configurar los datos para un solo cultivo
+            val cultivo = cultivos[0]
+            val dispositivosCultivo = dispositivos.filter { it.idCultivo.id == cultivo.id }
+            dispositivosCultivo.forEach { actualizarGraficas(it) }
+        } else {
+            view?.findViewById<LinearLayout>(R.id.layoutNoCultivo)?.visibility = View.GONE
+            view?.findViewById<LinearLayout>(R.id.layoutUnCultivo)?.visibility = View.GONE
+            view?.findViewById<RecyclerView>(R.id.recyclerViewCultivo)?.visibility = View.VISIBLE
+            // Configurar el adaptador del RecyclerView con la lista de cultivos
+            cultivoAdapter = CultivoAdapter(cultivos)
+            recyclerView.adapter = cultivoAdapter
+        }
+    }
+
+    private fun actualizarGraficas(dispositivo: Dispositivo) {
+        val datos = dispositivo.datos
+        when (dispositivo.nombreDispositivo) {
+            "Sensor de Humedad" -> {
+                if (datos is JSONArray) {
+                    val humedad = datos.getDouble(datos.length() - 1).toFloat()
+                    circularProgressBarHumedad.apply {
+                        progress = humedad
+                        textViewHumedadProgress.text = "$humedad%"
+                        progressMax = 100f
+                        progressBarWidth = 15f
+                        backgroundProgressBarWidth = 7f
+                        roundBorder = true
+                        startAngle = 180f
+                        progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+                        setProgressWithAnimation(humedad, 1000)
+                        progressBarColor = ContextCompat.getColor(requireContext(), R.color.background)
+                        progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                        ContextCompat.getColor(requireContext(), R.color.blue)
+                        backgroundProgressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
                     }
                 }
-            } else if (datos is JSONObject) {
-                // Verificar si el dispositivo es de tipo Nutrientes y extraer los valores
-                when (dispositivo.getString("nombre_dispositivo")) {
-                    "Sensor de Nutrientes" -> {
-                        if (datos.has("nitrogeno")) {
-                            val nitrogeno = datos.getJSONArray("nitrogeno").getDouble(datos.getJSONArray("nitrogeno").length() - 1).toFloat()
-                            circularProgressBarNitrogeno.apply {
-                                progress = nitrogeno
-                                textViewNitrogenoProgress.text = "$nitrogeno PPM"
-                                progressMax = 200f
-                                progressBarWidth = 10f
-                                backgroundProgressBarWidth = 5f
-                                backgroundProgressBarColor = ContextCompat.getColor(requireContext(), R.color.background)
-                                progressBarColor = ContextCompat.getColor(requireContext(), R.color.red)
-                                startAngle = 0f
-                            }
-                        }
-                        if (datos.has("fosforo")) {
-                            val fosforo = datos.getJSONArray("fosforo").getDouble(datos.getJSONArray("fosforo").length() - 1).toFloat()
-                            circularProgressBarFosforo.apply {
-                                progress = fosforo
-                                textViewFosforoProgress.text = "$fosforo PPM"
-                                progressMax = 200f
-                                progressBarWidth = 10f
-                                backgroundProgressBarWidth = 5f
-                                backgroundProgressBarColor = ContextCompat.getColor(requireContext(), R.color.background)
-                                progressBarColor = ContextCompat.getColor(requireContext(), R.color.yellow)
-                                startAngle = 0f
-                            }
-                        }
-                        if (datos.has("potasio")) {
-                            val potasio = datos.getJSONArray("potasio").getDouble(datos.getJSONArray("potasio").length() - 1).toFloat()
-                            circularProgressBarPotasio.apply {
-                                progress = potasio
-                                textViewPotasioProgress.text = "$potasio PPM"
-                                progressMax = 200f
-                                progressBarWidth = 10f
-                                backgroundProgressBarWidth = 5f
-                                backgroundProgressBarColor = ContextCompat.getColor(requireContext(), R.color.background)
-                                progressBarColor = ContextCompat.getColor(requireContext(), R.color.blue)
-                                startAngle = 0f
-                            }
-                        }
+            }
+            "Sensor de Temperatura" -> {
+                if (datos is JSONArray) {
+                    val temperatura = datos.getDouble(datos.length() - 1).toFloat()
+                    circularProgressBarTemperatura.apply {
+                        progress = temperatura
+                        textViewTemperaturaProgress.text = "$temperatura°C"
+                        progressMax = 50f
+                        progressBarWidth = 15f
+                        backgroundProgressBarWidth = 7f
+                        roundBorder = true
+                        startAngle = 180f
+                        progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+                        setProgressWithAnimation(temperatura, 1000)
+                        progressBarColor = ContextCompat.getColor(requireContext(), R.color.background)
+                        progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                        backgroundProgressBarColor = ContextCompat.getColor(requireContext(), R.color.red)
+                        backgroundProgressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                    }
+                }
+            }
+            "Sensor de Nutrientes" -> {
+                if (datos is JSONObject) {
+                    val nitrogeno = datos.getDouble("nitrogeno").toFloat()
+                    val fosforo = datos.getDouble("fosforo").toFloat()
+                    val potasio = datos.getDouble("potasio").toFloat()
+                    circularProgressBarNitrogeno.apply {
+                        progress = nitrogeno
+                        textViewNitrogenoProgress.text = "$nitrogeno ppm"
+                        progressMax = 100f
+                        progressBarWidth = 15f
+                        backgroundProgressBarWidth = 7f
+                        roundBorder = true
+                        startAngle = 180f
+                        progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+                        setProgressWithAnimation(nitrogeno, 1000)
+                        progressBarColor = ContextCompat.getColor(requireContext(), R.color.background)
+                        progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                        backgroundProgressBarColor = ContextCompat.getColor(requireContext(), R.color.green)
+                        backgroundProgressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                    }
+                    circularProgressBarFosforo.apply {
+                        progress = fosforo
+                        textViewFosforoProgress.text = "$fosforo ppm"
+                        progressMax = 100f
+                        progressBarWidth = 15f
+                        backgroundProgressBarWidth = 7f
+                        roundBorder = true
+                        startAngle = 180f
+                        progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+                        setProgressWithAnimation(fosforo, 1000)
+                        progressBarColor = ContextCompat.getColor(requireContext(), R.color.background)
+                        progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                        backgroundProgressBarColor = ContextCompat.getColor(requireContext(), R.color.yellow)
+                        backgroundProgressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                    }
+                    circularProgressBarPotasio.apply {
+                        progress = potasio
+                        textViewPotasioProgress.text = "$potasio ppm"
+                        progressMax = 100f
+                        progressBarWidth = 15f
+                        backgroundProgressBarWidth = 7f
+                        roundBorder = true
+                        startAngle = 180f
+                        progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+                        setProgressWithAnimation(potasio, 1000)
+                        progressBarColor = ContextCompat.getColor(requireContext(), R.color.background)
+                        progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                        backgroundProgressBarColor = ContextCompat.getColor(requireContext(), R.color.orange)
+                        backgroundProgressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
                     }
                 }
             }
