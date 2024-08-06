@@ -1,21 +1,3 @@
-/**
- *
- * Copyright 2019-2024 Bharath Vishal G.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- **/
-
 package com.bharathvishal.messagecommunicationusingwearabledatalayer
 
 import android.annotation.SuppressLint
@@ -24,15 +6,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.LinearLayout
-import android.widget.ScrollView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.wear.ambient.AmbientModeSupport
 import androidx.wear.ambient.AmbientModeSupport.AmbientCallback
 import com.bharathvishal.messagecommunicationusingwearabledatalayer.databinding.ActivityMainBinding
 import com.google.android.gms.wearable.*
+import com.google.gson.Gson
 import java.nio.charset.StandardCharsets
 
 class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProvider,
@@ -45,6 +24,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     private val TAG_MESSAGE_RECEIVED = "receive1"
     private val APP_OPEN_WEARABLE_PAYLOAD_PATH = "/APP_OPEN_WEARABLE_PAYLOAD"
+    private val CULTIVO_PAYLOAD_PATH = "/cultivo-payload"
 
     private var mobileDeviceConnected: Boolean = false
 
@@ -131,80 +111,49 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     override fun onMessageReceived(p0: MessageEvent) {
         try {
             Log.d(TAG_MESSAGE_RECEIVED, "onMessageReceived event received")
-            val s1 = String(p0.data, StandardCharsets.UTF_8)
+            val message = String(p0.data, StandardCharsets.UTF_8)
             val messageEventPath: String = p0.path
 
-            Log.d(
-                TAG_MESSAGE_RECEIVED,
-                "onMessageReceived() A message from watch was received:"
-                        + p0.requestId
-                        + " "
-                        + messageEventPath
-                        + " "
-                        + s1
-            )
+            Log.d(TAG_MESSAGE_RECEIVED, "onMessageReceived() A message from mobile was received:" +
+                    " ${p0.requestId} ${messageEventPath} ${message}")
 
-            //Send back a message back to the source node
-            //This acknowledges that the receiver activity is open
-            if (messageEventPath.isNotEmpty() && messageEventPath == APP_OPEN_WEARABLE_PAYLOAD_PATH) {
-                try {
-                    // Get the node id of the node that created the data item from the host portion of
-                    // the uri.
-                    val nodeId: String = p0.sourceNodeId.toString()
-                    // Set the data of the message to be the bytes of the Uri.
+            when (messageEventPath) {
+                APP_OPEN_WEARABLE_PAYLOAD_PATH -> {
+                    // Handle connection acknowledgement
+                    val nodeId = p0.sourceNodeId
                     val returnPayloadAck = wearableAppCheckPayloadReturnACK
                     val payload: ByteArray = returnPayloadAck.toByteArray()
 
-                    // Send the rpc
-                    // Instantiates clients without member variables, as clients are inexpensive to
-                    // create. (They are cached and shared between GoogleApi instances.)
-                    val sendMessageTask =
-                        Wearable.getMessageClient(activityContext!!)
-                            .sendMessage(nodeId, APP_OPEN_WEARABLE_PAYLOAD_PATH, payload)
-
-                    Log.d(
-                        TAG_MESSAGE_RECEIVED,
-                        "Acknowledgement message successfully with payload : $returnPayloadAck"
-                    )
-
-                    messageEvent = p0
-                    mobileNodeUri = p0.sourceNodeId
+                    // Send an acknowledgment back to the mobile device
+                    val sendMessageTask = Wearable.getMessageClient(activityContext!!)
+                        .sendMessage(nodeId, APP_OPEN_WEARABLE_PAYLOAD_PATH, payload)
 
                     sendMessageTask.addOnCompleteListener {
                         if (it.isSuccessful) {
-                            Log.d(TAG_MESSAGE_RECEIVED, "Message sent successfully")
-
-                            val sbTemp = StringBuilder()
-                            sbTemp.append("\nMobile device connected.")
-                            Log.d("receive1", " $sbTemp")
-
+                            Log.d(TAG_MESSAGE_RECEIVED, "Acknowledgement message sent successfully")
                             mobileDeviceConnected = true
-
-                            val intent = Intent(this, Inicio::class.java)
-                            startActivity(intent)
-                            finish()
                         } else {
-                            Log.d(TAG_MESSAGE_RECEIVED, "Message failed.")
+                            Log.d(TAG_MESSAGE_RECEIVED, "Failed to send acknowledgement message")
                         }
                     }
-                } catch (e: Exception) {
-                    e.printStackTrace()
                 }
-            }//emd of if
-            else if (messageEventPath.isNotEmpty() && messageEventPath == MESSAGE_ITEM_RECEIVED_PATH) {
-                try {
+                CULTIVO_PAYLOAD_PATH -> {
+                    // Handle received cultivo data
+                    val cultivo = Gson().fromJson(message, Cultivo::class.java)
+                    Log.d("CultivoMessageListener", "Received Cultivo data: $cultivo")
+                    // Here you can update the UI or process the data as needed
 
-                    val sbTemp = StringBuilder()
-                    sbTemp.append("\n")
-                    sbTemp.append(s1)
-                    sbTemp.append(" - (Received from mobile)")
-                    Log.d("receive1", " $sbTemp")
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                    val intent = Intent(this, Inicio::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                else -> {
+                    Log.d(TAG_MESSAGE_RECEIVED, "Unknown path: $messageEventPath")
                 }
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            Log.d(TAG_MESSAGE_RECEIVED, "Exception in onMessageReceived: ${e.message}")
         }
     }
 

@@ -20,6 +20,7 @@ import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.MessageClient
 import com.google.android.gms.wearable.MessageEvent
 import com.google.android.gms.wearable.Wearable
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -53,6 +54,7 @@ class SmartwatchFragment : Fragment(), CoroutineScope by MainScope(),
 
     private var currentAckFromWearForAppOpenCheck: String? = null
     private val APP_OPEN_WEARABLE_PAYLOAD_PATH = "/APP_OPEN_WEARABLE_PAYLOAD"
+    private val CULTIVO_PAYLOAD_PATH = "/cultivo-payload"
 
     private val MESSAGE_ITEM_RECEIVED_PATH: String = "/message-item-received"
 
@@ -213,6 +215,7 @@ class SmartwatchFragment : Fragment(), CoroutineScope by MainScope(),
                     // create. (They are cached and shared between GoogleApi instances.)
                     val sendMessageTask = Wearable.getMessageClient(context)
                         .sendMessage(nodeId, APP_OPEN_WEARABLE_PAYLOAD_PATH, payload)
+
                     try {
                         // Block on a task and get the result synchronously (because this is on a background thread).
                         val result = Tasks.await(sendMessageTask)
@@ -264,6 +267,27 @@ class SmartwatchFragment : Fragment(), CoroutineScope by MainScope(),
         return resBool
     }
 
+    private fun sendAllCultivoData() {
+        Log.d("sendAllCultivoData","Si llamo la funcion")
+        val nodeId: String = messageEvent?.sourceNodeId!!
+        Log.v("nodeId","$nodeId")
+        val gson = Gson()
+        Log.v("Cultivo","${UserSingleton.cultivos}")
+        UserSingleton.cultivos.forEach { cultivo ->
+            val payload = gson.toJson(cultivo).toByteArray()
+            Log.v("payload","$payload")
+            val sendMessageTask = Wearable.getMessageClient(activityContext!!)
+                .sendMessage(nodeId, CULTIVO_PAYLOAD_PATH, payload)
+
+            sendMessageTask.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.d("sendCultivoData", "Cultivo data sent successfully")
+                } else {
+                    Log.d("sendCultivoData", "Failed to send Cultivo data")
+                }
+            }
+        }
+    }
 
     override fun onDataChanged(p0: DataEventBuffer) {
     }
@@ -298,6 +322,9 @@ class SmartwatchFragment : Fragment(), CoroutineScope by MainScope(),
                 binding.textViewInfoWatch.visibility = View.GONE
                 messageEvent = p0
                 wearableNodeUri = p0.sourceNodeId
+
+
+                sendAllCultivoData()
             } else if (messageEventPath.isNotEmpty() && messageEventPath == MESSAGE_ITEM_RECEIVED_PATH) {
 
                 try {

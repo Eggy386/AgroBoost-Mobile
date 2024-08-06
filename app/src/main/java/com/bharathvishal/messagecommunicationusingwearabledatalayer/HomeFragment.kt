@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.bharathvishal.messagecommunicationusingwearabledatalayer.UserSingleton.cultivos
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -131,6 +132,7 @@ class HomeFragment : Fragment() {
                 Log.v("obtenerDatosDispositivo", "$response")
                 try {
                     val dispositivos = mutableListOf<Dispositivo>()
+                    val cultivos = mutableListOf<Cultivo>()
                     for (i in 0 until response.length()) {
                         val dispositivoJson = response.getJSONObject(i)
                         val idCultivoJson = dispositivoJson.getJSONObject("id_cultivo")
@@ -157,7 +159,10 @@ class HomeFragment : Fragment() {
                             idUsuario = dispositivoJson.getString("id_usuario")
                         )
                         dispositivos.add(dispositivo)
+                        cultivos.add(cultivo)
                     }
+                    UserSingleton.cultivos = cultivos
+                    Log.v("UserSingleton Home", "${UserSingleton.cultivos}")
                     handleCultivos(dispositivos)
                 } catch (e: Exception) {
                     Log.e("HomeFragment", "Error al procesar la respuesta JSON", e)

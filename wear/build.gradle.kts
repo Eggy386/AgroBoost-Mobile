@@ -98,5 +98,6 @@ dependencies {
     implementation(libs.androidx.wear)
     compileOnly(libs.google.android.wearable)
     implementation(libs.google.android.support.wearable)
+    implementation("com.google.code.gson:gson:2.8.8")
 }
 
