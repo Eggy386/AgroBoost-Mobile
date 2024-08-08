@@ -200,6 +200,7 @@ class RiegoFragment : Fragment() {
                         )
                         riegos.add(riego)
                     }
+                    UserSingleton.riegos = riegos
                     riegoAdapter.notifyDataSetChanged()
                 }
             },

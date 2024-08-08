@@ -14,6 +14,9 @@ import com.google.android.gms.wearable.*
 import com.google.gson.Gson
 import java.nio.charset.StandardCharsets
 
+//import com.bharathvishal.messagecommunicationusingwearabledatalayer.data.Riego
+//import com.bharathvishal.messagecommunicationusingwearabledatalayer.data.Recordatorio
+
 class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProvider,
     DataClient.OnDataChangedListener,
     MessageClient.OnMessageReceivedListener,
@@ -25,6 +28,8 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     private val TAG_MESSAGE_RECEIVED = "receive1"
     private val APP_OPEN_WEARABLE_PAYLOAD_PATH = "/APP_OPEN_WEARABLE_PAYLOAD"
     private val CULTIVO_PAYLOAD_PATH = "/cultivo-payload"
+    private val RECORDATORIO_PAYLOAD_PATH = "/recordatorio-payload"
+    private val RIEGO_PAYLOAD_PATH = "/riego-payload"
 
     private var mobileDeviceConnected: Boolean = false
 
@@ -139,11 +144,25 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 }
                 CULTIVO_PAYLOAD_PATH -> {
                     // Handle received cultivo data
-                    val cultivo = Gson().fromJson(message, Cultivo::class.java)
+                    val gson = Gson()
+                    val cultivo = gson.fromJson(message, Cultivo::class.java)
                     Log.d("CultivoMessageListener", "Received Cultivo data: $cultivo")
                     // Here you can update the UI or process the data as needed
+                }
+                RECORDATORIO_PAYLOAD_PATH -> {
+                    val gson = Gson()
+                    val recordatorio = gson.fromJson(message, RecordatorioData::class.java)
+                    Log.d("RecordatorioMessageListener", "Received Recordatorio data: $recordatorio")
+                    DataRepository.recordatorioList.add(recordatorio)
+                }
+                RIEGO_PAYLOAD_PATH -> {
+                    val gson = Gson()
+                    val riego = gson.fromJson(message, RiegoData::class.java)
+                    Log.d("RiegoMessageListener", "Received Riego data: $riego")
+                    DataRepository.riegoList.add(riego)
 
                     val intent = Intent(this, Inicio::class.java)
+                    Log.v("Intent", "Iniciar vista")
                     startActivity(intent)
                     finish()
                 }
@@ -156,7 +175,6 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
             Log.d(TAG_MESSAGE_RECEIVED, "Exception in onMessageReceived: ${e.message}")
         }
     }
-
 
     override fun onPause() {
         super.onPause()

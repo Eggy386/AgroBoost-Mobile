@@ -29,67 +29,11 @@
                 android:fontFamily="@font/hind_madurai"
                 android:paddingTop="16dp"/>
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewRecordatorios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp"
-                android:background="@drawable/container"
-                android:layout_marginBottom="14dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Regar cultivo"
-                            android:textColor="?TextInfoColor"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="4dp"
-                            android:fontFamily="@font/hind_madurai"/>
-
-
-                        <TextView
-                            android:id="@+id/textViewNextRecordatorio"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Todos los días"
-                            android:textColor="?TextViewHeaderColor"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/hind_madurai"/>
-
-                        <TextView
-                            android:id="@+id/textViewHoraRecordatorio"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="08:30 a.m."
-                            android:layout_weight="1"
-                            android:textColor="?TextViewHeaderColor"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/hind_madurai"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2.5">
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/switchRecordatorio"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            app:thumbTint="@color/switch_thumb"
-                            app:trackTint="@color/switch_track"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_marginBottom="16dp"/>
             <Button
                 android:id="@+id/viewPhoneRecordatorio"
                 android:layout_width="match_parent"

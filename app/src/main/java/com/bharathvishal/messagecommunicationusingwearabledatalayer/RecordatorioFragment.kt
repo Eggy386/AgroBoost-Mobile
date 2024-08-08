@@ -143,6 +143,7 @@ class RecordatorioFragment : Fragment() {
                             Log.e("RecordatorioFragment", "Error parsing recordatorio JSON", e)
                         }
                     }
+                    UserSingleton.recordatorios = recordatorios
                     // Actualiza el adaptador con los nuevos datos
                     adapter.updateRecordatorios(recordatorios)
                 }

@@ -55,6 +55,8 @@ class SmartwatchFragment : Fragment(), CoroutineScope by MainScope(),
     private var currentAckFromWearForAppOpenCheck: String? = null
     private val APP_OPEN_WEARABLE_PAYLOAD_PATH = "/APP_OPEN_WEARABLE_PAYLOAD"
     private val CULTIVO_PAYLOAD_PATH = "/cultivo-payload"
+    private val RECORDATORIO_PAYLOAD_PATH = "/recordatorio-payload"
+    private val RIEGO_PAYLOAD_PATH = "/riego-payload"
 
     private val MESSAGE_ITEM_RECEIVED_PATH: String = "/message-item-received"
 
@@ -268,14 +270,10 @@ class SmartwatchFragment : Fragment(), CoroutineScope by MainScope(),
     }
 
     private fun sendAllCultivoData() {
-        Log.d("sendAllCultivoData","Si llamo la funcion")
         val nodeId: String = messageEvent?.sourceNodeId!!
-        Log.v("nodeId","$nodeId")
         val gson = Gson()
-        Log.v("Cultivo","${UserSingleton.cultivos}")
         UserSingleton.cultivos.forEach { cultivo ->
             val payload = gson.toJson(cultivo).toByteArray()
-            Log.v("payload","$payload")
             val sendMessageTask = Wearable.getMessageClient(activityContext!!)
                 .sendMessage(nodeId, CULTIVO_PAYLOAD_PATH, payload)
 
@@ -284,6 +282,42 @@ class SmartwatchFragment : Fragment(), CoroutineScope by MainScope(),
                     Log.d("sendCultivoData", "Cultivo data sent successfully")
                 } else {
                     Log.d("sendCultivoData", "Failed to send Cultivo data")
+                }
+            }
+        }
+    }
+
+    private fun sendAllRecordatorioData() {
+        val nodeId: String = messageEvent?.sourceNodeId!!
+        val gson = Gson()
+        UserSingleton.recordatorios.forEach { recordatorio ->
+            val payload = gson.toJson(recordatorio).toByteArray()
+            val sendMessageTask = Wearable.getMessageClient(activityContext!!)
+                .sendMessage(nodeId, RECORDATORIO_PAYLOAD_PATH, payload)
+
+            sendMessageTask.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.d("sendAllRecordatorioData", "Recordatorio data sent successfully")
+                } else {
+                    Log.d("sendAllRecordatorioData", "Failed to send Recordatorio data")
+                }
+            }
+        }
+    }
+
+    private fun sendAllRiegoData() {
+        val nodeId: String = messageEvent?.sourceNodeId!!
+        val gson = Gson()
+        UserSingleton.riegos.forEach { riego ->
+            val payload = gson.toJson(riego).toByteArray()
+            val sendMeesageTask = Wearable.getMessageClient(activityContext!!)
+                .sendMessage(nodeId, RIEGO_PAYLOAD_PATH, payload)
+
+            sendMeesageTask.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.d("sendAllRiegoData", "Riego data sent successfully")
+                } else {
+                    Log.d("sendAllRiegoData", "Failed to send Recordatorio data")
                 }
             }
         }
@@ -325,6 +359,8 @@ class SmartwatchFragment : Fragment(), CoroutineScope by MainScope(),
 
 
                 sendAllCultivoData()
+                sendAllRecordatorioData()
+                sendAllRiegoData()
             } else if (messageEventPath.isNotEmpty() && messageEventPath == MESSAGE_ITEM_RECEIVED_PATH) {
 
                 try {
